@@ -1,0 +1,29 @@
+### Get all prizes
+GET http://localhost:3000/prizes
+
+### Get one prize by id
+GET http://localhost:3000/prizes/5d91c918af216a1f40585087
+
+### Create new prize
+POST http://localhost:3000/prizes
+Content-Type: application/json
+
+{
+    "title": "Kuponas apsipirkti",
+    "place": "1",
+    "value": "50",
+    "about": "Prekybos centre maxima"
+}
+
+### Delete prize by id
+DELETE http://localhost:3000/prizes/5d91c918af216a1f40585087
+
+### Update prize by id
+PATCH http://localhost:3000/prizes/5d91c918af216a1f40585087
+Content-Type: application/json
+
+{
+    "title": "Čekis apsipirkimui",
+    "place": "2",
+    "value": "20"
+}

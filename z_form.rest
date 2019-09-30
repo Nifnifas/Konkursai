@@ -1,0 +1,29 @@
+### Get all forms
+GET http://localhost:3000/forms
+
+### Get one form by id
+GET http://localhost:3000/forms/5d91c849af216a1f40585084
+
+### Create new form
+POST http://localhost:3000/forms
+Content-Type: application/json
+
+{
+    "city": "Kaunas",
+    "address": "Zveryno g. 17",
+    "phone": "+37061145879",
+    "about": "Labai noriu laimeti priza"
+}
+
+### Delete form by id
+DELETE http://localhost:3000/forms/5d91c849af216a1f40585084
+
+### Update form by id
+PATCH http://localhost:3000/forms/5d91c849af216a1f40585084
+Content-Type: application/json
+
+{
+    "city": "Vilnius",
+    "address": "Gostauto g. 48",
+    "phone": "+37062214256"
+}
