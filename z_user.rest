@@ -1,28 +1,54 @@
 ### Get all users
-GET http://localhost:3000/users
+GET http://localhost:3000/users/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGQ5MTc1MTQ2YjJiYTJmMDRmZmY0YjIiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJHVGVXdnMnRNNTlPQVB5QnNYUlZyb09yUld3RXJQS2JJRDExT0NpSWhNdkRQWi4yS1ZGTVBPIiwiYWRtaW4iOnRydWUsImlhdCI6MTU3NTEzNDc1MywiZXhwIjoxNTc1MTM0OTMzfQ.zQRJJo0A376SymIJUCnnU-T-DSA96f6CjG-i6B7gn4M
 
 ### Get one user by id
-GET http://localhost:3000/users/5d91b22294cdb53bfcf8ace2
+GET http://localhost:3000/users/5de27139f250593d84af4353
 
 ### Create new user
-POST http://localhost:3000/users
+POST http://localhost:3000/users/register
 Content-Type: application/json
+
+#{
+#    "name": "Petra",
+#    "surname": "Jonaitis",
+#    "age": "25",
+#    "email": "petra@gmail.com",
+#    "password": "password"
+#}
 
 {
     "name": "Lukas",
     "surname": "Krupenkinas",
-    "age": "22"
+    "age": "22",
+    "email": "admin2@gmail.com",
+    "password": "krup",
+    "admin": true
 }
 
-### Delete user by id
-DELETE http://localhost:3000/users/5d91badf4d3ba22de4a327ee
-
-### Update user by id
-PATCH http://localhost:3000/users/5d91b5864f3c463bc880cd7f
+### Login user
+POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-    "name": "Tomas",
-    "surname": "Galiauskas",
-    "age": "17"
+    "email": "admin@gmail.com",
+    "password": "krup"
+}
+
+### Access token autherization
+GET http://localhost:4000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGUyNzEzOWYyNTA1OTNkODRhZjQzNTMiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6InN1dUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRQMTYweFRoaFMvMjdMWElCR243ejR1Qm5JUzNaNzF5ME15TGUwcEl1dFl6SEpZRG5XWG1LcSIsImFkbWluIjpmYWxzZSwiaWF0IjoxNTc1MTMwMDg0LCJleHAiOjE1NzUxMzAyNjR9.iP4La_1mtFYj8_4XFCbzHrDHLKRlTFCkXnoMPOe6YyQ
+
+### Delete user by id
+DELETE http://localhost:3000/users/5de27139f250593d84af4353
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGUyNzEzOWYyNTA1OTNkODRhZjQzNTMiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6InN1dUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRQMTYweFRoaFMvMjdMWElCR243ejR1Qm5JUzNaNzF5ME15TGUwcEl1dFl6SEpZRG5XWG1LcSIsImFkbWluIjpmYWxzZSwiaWF0IjoxNTc1MTMwMDg0LCJleHAiOjE1NzUxMzAyNjR9.iP4La_1mtFYj8_4XFCbzHrDHLKRlTFCkXnoMPOe6YyQ
+### Update user by id
+PATCH http://localhost:3000/users/5de27139f250593d84af4353
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGQ5MTc1MTQ2YjJiYTJmMDRmZmY0YjIiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJHVGVXdnMnRNNTlPQVB5QnNYUlZyb09yUld3RXJQS2JJRDExT0NpSWhNdkRQWi4yS1ZGTVBPIiwiYWRtaW4iOnRydWUsImlhdCI6MTU3NTEzMTIzOSwiZXhwIjoxNTc1MTMxNDE5fQ.HQbTEH1C0beI6zH6UWWztfynF0J_du0kv2JF_4UVpQo
+Content-Type: application/json
+
+{
+    "name": "Tadas",
+    "surname": "Malinauskas",
+    "age": "20"
 }

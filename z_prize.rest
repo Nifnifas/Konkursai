@@ -2,24 +2,28 @@
 GET http://localhost:3000/prizes
 
 ### Get one prize by id
-GET http://localhost:3000/prizes/5d91c918af216a1f40585087
+GET http://localhost:3000/prizes/5de402c2cde1de14602ed277
 
 ### Create new prize
-POST http://localhost:3000/prizes
+POST http://localhost:4000/prizes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGU0MDU0YzM2MzM5ZDQ2YzgwMGQwMWEiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRGMEhGWDR5dGFXMDlNdkVycTdmWndla3l1bWl5LkhFYWpDWGo5WlQzNDdHVFd0ZE9tVEFHRyIsImFkbWluIjp0cnVlLCJpYXQiOjE1NzUyMjUwMDAsImV4cCI6MTU3NTIyNTE4MH0.8q9eHs1MyJ7cpBAUcoDphCuh3MWJs_IyRoLG_oB86eQ
 Content-Type: application/json
 
 {
-    "title": "Kuponas apsipirkti",
+    "title": "Kuponas apsipirkti 1",
     "place": "1",
-    "value": "50",
-    "about": "Prekybos centre maxima"
+    "value": "40",
+    "about": "Prekybos centre maxima",
+    "fk_contestid": "5de406d9c9fcbb3380e097e8"
 }
 
 ### Delete prize by id
-DELETE http://localhost:3000/prizes/5d91c918af216a1f40585087
+DELETE http://localhost:3000/prizes/5de40707c9fcbb3380e097ea
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGQ5MTc1MTQ2YjJiYTJmMDRmZmY0YjIiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJHVGVXdnMnRNNTlPQVB5QnNYUlZyb09yUld3RXJQS2JJRDExT0NpSWhNdkRQWi4yS1ZGTVBPIiwiYWRtaW4iOnRydWUsImlhdCI6MTU3NTIyNTEzMCwiZXhwIjoxNTc1MjI1MzEwfQ.dZiF_RLzqSvnFcUBYE6lb1mjF4ZM2IXZDzkmSkGfuRo
 
 ### Update prize by id
-PATCH http://localhost:3000/prizes/5d91c918af216a1f40585087
+PATCH http://localhost:3000/prizes/5de40707c9fcbb3380e097ea
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGQ5MTc1MTQ2YjJiYTJmMDRmZmY0YjIiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJHVGVXdnMnRNNTlPQVB5QnNYUlZyb09yUld3RXJQS2JJRDExT0NpSWhNdkRQWi4yS1ZGTVBPIiwiYWRtaW4iOnRydWUsImlhdCI6MTU3NTIyNTEzMCwiZXhwIjoxNTc1MjI1MzEwfQ.dZiF_RLzqSvnFcUBYE6lb1mjF4ZM2IXZDzkmSkGfuRo
 Content-Type: application/json
 
 {

@@ -5,6 +5,10 @@ const contestSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    about:{
+        type: String,
+        required: false
+    },
     author:{
         type: String,
         required: true
@@ -13,6 +17,10 @@ const contestSchema = new mongoose.Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    fk_userid:{
+        type: String,
+        required: true
     }
 },
 {

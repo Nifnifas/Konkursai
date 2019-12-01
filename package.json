@@ -5,7 +5,10 @@
   "dependencies": {
     "@material-ui/core": "^4.4.1",
     "@material-ui/icons": "^4.4.1",
+    "bcrypt": "^3.0.6",
+    "ejs": "^2.7.2",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.2",
     "mongoose": "^5.7.1",
     "react": "^16.9.0",
@@ -17,7 +20,9 @@
     "react-scripts": "3.1.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "socket.io-client": "^2.3.0"
+    "request": "^2.88.0",
+    "socket.io-client": "^2.3.0",
+    "view-engine": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

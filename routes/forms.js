@@ -1,9 +1,12 @@
+require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const Form = require('../models/form')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 // All forms
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, requireAdmin, async (req, res) => {
     try {
         const forms = await Form.find()
         res.json(forms)
@@ -13,17 +16,18 @@ router.get('/', async (req, res) => {
 })
 
 // One form
-router.get('/:id', getForm, (req, res) => {
+router.get('/:id', authenticateToken, requireAdmin, getForm, (req, res) => {
     res.json(res.form)
 })
 
 // Create form
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
     const form = new Form({
         city: req.body.city,
         address: req.body.address,
         phone: req.body.phone,
-        about: req.body.about
+        about: req.body.about,
+        fk_userid: req.user._id
     })
 
     try {
@@ -36,7 +40,7 @@ router.post('/', async (req, res) => {
 })
 
 // Update form
-router.patch('/:id', getForm, async (req, res) => {
+router.patch('/:id', getForm, authenticateToken, requireSameUser, async (req, res) => {
     if(req.body.city != null){
         res.form.city = req.body.city
     }
@@ -58,7 +62,7 @@ router.patch('/:id', getForm, async (req, res) => {
 })
 
 // Delete form
-router.delete('/:id', getForm, async (req, res) => {
+router.delete('/:id', getForm, authenticateToken, requireSameUser,  async (req, res) => {
     try {
         await res.form.remove()
         res.json({message: 'Form deleted'})
@@ -66,6 +70,15 @@ router.delete('/:id', getForm, async (req, res) => {
         res.status(500).json({message: err.message})
     }
 })
+
+function requireAdmin(req, res, next) {
+    if (req.user.admin == false) {
+        res.json({message: 'Permission denied. You have to be admin.'});
+    }
+    else {
+        next();
+    }
+};
 
 async function getForm(req, res, next){
     let form
@@ -80,5 +93,40 @@ async function getForm(req, res, next){
     res.form = form
     next()
 }
+
+// Authenticates user by token
+function authenticateToken (req, res, next){
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if(token == null)
+        return res.sendStatus(401)
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if(err)
+            return res.sendStatus(403)
+        req.user = user
+        
+        next()
+    })
+}
+
+function requireAdmin(req, res, next) {
+    if (req.user.admin == false) {
+        res.json({message: 'Permission denied. You have to be admin.'});
+    }
+    else {
+        next();
+    }
+};
+
+function requireSameUser(req, res, next) {
+    if (req.user._id != res.form.fk_userid) {
+        res.json({message: 'Permission denied. You have to be same user.'});
+    }
+    else {
+        next();
+    }
+};
 
 module.exports = router

@@ -2,24 +2,27 @@
 GET http://localhost:3000/contests
 
 ### Get one contest by id
-GET http://localhost:3000/contests/5d91c080159f7b1a1838654c
+GET http://localhost:3000/contests/5de40035916801026c7223a3
 
 ### Create new contest
 POST http://localhost:3000/contests
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGU0MDU0YzM2MzM5ZDQ2YzgwMGQwMWEiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRGMEhGWDR5dGFXMDlNdkVycTdmWndla3l1bWl5LkhFYWpDWGo5WlQzNDdHVFd0ZE9tVEFHRyIsImFkbWluIjp0cnVlLCJpYXQiOjE1NzUyMjUwMDAsImV4cCI6MTU3NTIyNTE4MH0.8q9eHs1MyJ7cpBAUcoDphCuh3MWJs_IyRoLG_oB86eQ
 Content-Type: application/json
 
 {
-    "title": "Naujasis konkursas",
-    "author": "user"
+    "title": "Antrojo admin konkursas",
+    "about": "1 etapo konkursas"
 }
 
 ### Delete contest by id
-DELETE http://localhost:3000/contests/5d91c080159f7b1a1838654c
+DELETE http://localhost:3000/contests/5de40035916801026c7223a3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGU0MDU0YzM2MzM5ZDQ2YzgwMGQwMWEiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRGMEhGWDR5dGFXMDlNdkVycTdmWndla3l1bWl5LkhFYWpDWGo5WlQzNDdHVFd0ZE9tVEFHRyIsImFkbWluIjp0cnVlLCJpYXQiOjE1NzUyMjQ2NTksImV4cCI6MTU3NTIyNDgzOX0.aGQXOs7S9wo-INDPvuITGrdIwSCVGcYVZmaGDnwHHSs
 
 ### Update contest by id
-PATCH http://localhost:3000/contests/5d91c080159f7b1a1838654c
+PATCH http://localhost:3000/contests/5de40035916801026c7223a3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGU0MDU0YzM2MzM5ZDQ2YzgwMGQwMWEiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluMkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRGMEhGWDR5dGFXMDlNdkVycTdmWndla3l1bWl5LkhFYWpDWGo5WlQzNDdHVFd0ZE9tVEFHRyIsImFkbWluIjp0cnVlLCJpYXQiOjE1NzUyMjQ2NTksImV4cCI6MTU3NTIyNDgzOX0.aGQXOs7S9wo-INDPvuITGrdIwSCVGcYVZmaGDnwHHSs
 Content-Type: application/json
 
 {
-    "title": "Atnaujintas konkursas"
+    "title": "Konkursas"
 }

@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Contest = require('../models/contest')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 // All contests
 router.get('/', async (req, res) => {
@@ -18,10 +20,12 @@ router.get('/:id', getContest, (req, res) => {
 })
 
 // Create contest
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, requireAdmin, async (req, res) => {
     const contest = new Contest({
         title: req.body.title,
-        author: req.body.author
+        about: req.body.about,
+        author: req.user.name + " " + req.user.surname,
+        fk_userid: req.user._id
     })
 
     try {
@@ -34,7 +38,7 @@ router.post('/', async (req, res) => {
 })
 
 // Update contest
-router.patch('/:id', getContest, async (req, res) => {
+router.patch('/:id', getContest, authenticateToken, requireAdmin, requireSameUser, async (req, res) => {
     if(req.body.title != null){
         res.contest.title = req.body.title
     }
@@ -50,7 +54,7 @@ router.patch('/:id', getContest, async (req, res) => {
 })
 
 // Delete contest
-router.delete('/:id', getContest, async (req, res) => {
+router.delete('/:id', getContest, authenticateToken, requireAdmin, requireSameUser, async (req, res) => {
     try {
         await res.contest.remove()
         res.json({message: 'Contest deleted'})
@@ -72,5 +76,40 @@ async function getContest(req, res, next){
     res.contest = contest
     next()
 }
+
+// Authenticates user by token
+function authenticateToken (req, res, next){
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if(token == null)
+        return res.sendStatus(401)
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if(err)
+            return res.sendStatus(403)
+        req.user = user
+        
+        next()
+    })
+}
+
+function requireAdmin(req, res, next) {
+    if (req.user.admin == false) {
+        res.json({message: 'Permission denied. You have to be admin.'});
+    }
+    else {
+        next();
+    }
+};
+
+function requireSameUser(req, res, next) {
+    if (req.user._id != res.contest.fk_userid) {
+        res.json({message: 'Permission denied. You have to be same user.'});
+    }
+    else {
+        next();
+    }
+};
 
 module.exports = router

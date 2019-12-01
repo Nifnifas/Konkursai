@@ -9,6 +9,16 @@ db.on('error', (error) => console.error(error))
 db.once('open', (error) => console.log('Connected to database'))
 
 app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.set('view-engine', 'ejs')
+
+app.get('/login', (req, res) => {
+    res.render('login.ejs')
+})
+
+app.get('/register', (req, res) => {
+    res.render('register.ejs')
+})
 
 const userRouter = require('./routes/users')
 app.use('/users', userRouter)
@@ -22,4 +32,5 @@ app.use('/forms', formRouter)
 const prizeRouter = require('./routes/prizes')
 app.use('/prizes', prizeRouter)
 
-app.listen(3000, () => console.log('Server Started'))
+app.listen(3000, () => console.log('Server 3000 Started'))
+app.listen(4000, () => console.log('Server 4000 Started'))

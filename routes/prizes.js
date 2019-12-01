@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Prize = require('../models/prize')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 // All prizes
 router.get('/', async (req, res) => {
@@ -18,12 +20,14 @@ router.get('/:id', getPrize, (req, res) => {
 })
 
 // Create prize
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, requireAdmin, async (req, res) => {
     const prize = new Prize({
         title: req.body.title,
         place: req.body.place,
         value: req.body.value,
-        about: req.body.about
+        about: req.body.about,
+        fk_contestid: req.body.fk_contestid,
+        fk_userid: req.user._id
     })
 
     try {
@@ -36,7 +40,7 @@ router.post('/', async (req, res) => {
 })
 
 // Update prize
-router.patch('/:id', getPrize, async (req, res) => {
+router.patch('/:id', getPrize, authenticateToken, requireAdmin, requireSameUser, async (req, res) => {
     if(req.body.title != null){
         res.prize.title = req.body.title
     }
@@ -58,7 +62,7 @@ router.patch('/:id', getPrize, async (req, res) => {
 })
 
 // Delete prize
-router.delete('/:id', getPrize, async (req, res) => {
+router.delete('/:id', getPrize, authenticateToken, requireAdmin, requireSameUser, async (req, res) => {
     try {
         await res.prize.remove()
         res.json({message: 'Prize deleted'})
@@ -80,5 +84,40 @@ async function getPrize(req, res, next){
     res.prize = prize
     next()
 }
+
+// Authenticates user by token
+function authenticateToken (req, res, next){
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if(token == null)
+        return res.sendStatus(401)
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if(err)
+            return res.sendStatus(403)
+        req.user = user
+        
+        next()
+    })
+}
+
+function requireAdmin(req, res, next) {
+    if (req.user.admin == false) {
+        res.json({message: 'Permission denied. You have to be admin.'});
+    }
+    else {
+        next();
+    }
+};
+
+function requireSameUser(req, res, next) {
+    if (req.user._id != res.prize.fk_userid) {
+        res.json({message: 'Permission denied. You have to be same user.'});
+    }
+    else {
+        next();
+    }
+};
 
 module.exports = router

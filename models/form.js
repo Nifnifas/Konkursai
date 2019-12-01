@@ -17,6 +17,10 @@ const formSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    fk_userid:{
+        type: String,
+        required: true
+    }
 },
 {
     versionKey: false

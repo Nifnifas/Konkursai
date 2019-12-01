@@ -1,29 +1,33 @@
 ### Get all forms
 GET http://localhost:3000/forms
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGUyNzEzOWYyNTA1OTNkODRhZjQzNTMiLCJuYW1lIjoiVGFkYXMiLCJzdXJuYW1lIjoiTWFsaW5hdXNrYXMiLCJhZ2UiOjIwLCJlbWFpbCI6InN1dUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRQMTYweFRoaFMvMjdMWElCR243ejR1Qm5JUzNaNzF5ME15TGUwcEl1dFl6SEpZRG5XWG1LcSIsImFkbWluIjpmYWxzZSwiaWF0IjoxNTc1MTQxNDQ4LCJleHAiOjE1NzUxNDE2Mjh9.N9Kua3pVt95mfzXgkvuxWbb9KC4Eyy-J-Gxd1lYh_Pg
 
 ### Get one form by id
-GET http://localhost:3000/forms/5d91c849af216a1f40585084
-
+GET http://localhost:3000/forms/5d91d01549f31a390c7b3319
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGUyNzEzOWYyNTA1OTNkODRhZjQzNTMiLCJuYW1lIjoiVGFkYXMiLCJzdXJuYW1lIjoiTWFsaW5hdXNrYXMiLCJhZ2UiOjIwLCJlbWFpbCI6InN1dUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRQMTYweFRoaFMvMjdMWElCR243ejR1Qm5JUzNaNzF5ME15TGUwcEl1dFl6SEpZRG5XWG1LcSIsImFkbWluIjpmYWxzZSwiaWF0IjoxNTc1MTQxNDQ4LCJleHAiOjE1NzUxNDE2Mjh9.N9Kua3pVt95mfzXgkvuxWbb9KC4Eyy-J-Gxd1lYh_Pg
 ### Create new form
 POST http://localhost:3000/forms
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGUyNzEzOWYyNTA1OTNkODRhZjQzNTMiLCJuYW1lIjoiVGFkYXMiLCJzdXJuYW1lIjoiTWFsaW5hdXNrYXMiLCJhZ2UiOjIwLCJlbWFpbCI6InN1dUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRQMTYweFRoaFMvMjdMWElCR243ejR1Qm5JUzNaNzF5ME15TGUwcEl1dFl6SEpZRG5XWG1LcSIsImFkbWluIjpmYWxzZSwiaWF0IjoxNTc1MTQxNDQ4LCJleHAiOjE1NzUxNDE2Mjh9.N9Kua3pVt95mfzXgkvuxWbb9KC4Eyy-J-Gxd1lYh_Pg
 Content-Type: application/json
 
 {
-    "city": "Kaunas",
+    "city": "Vilnius",
     "address": "Zveryno g. 17",
     "phone": "+37061145879",
     "about": "Labai noriu laimeti priza"
 }
 
 ### Delete form by id
-DELETE http://localhost:3000/forms/5d91c849af216a1f40585084
+DELETE http://localhost:3000/forms/5de2c095a93caf0a70d28b62
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGUyNzEzOWYyNTA1OTNkODRhZjQzNTMiLCJuYW1lIjoiVGFkYXMiLCJzdXJuYW1lIjoiTWFsaW5hdXNrYXMiLCJhZ2UiOjIwLCJlbWFpbCI6InN1dUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRQMTYweFRoaFMvMjdMWElCR243ejR1Qm5JUzNaNzF5ME15TGUwcEl1dFl6SEpZRG5XWG1LcSIsImFkbWluIjpmYWxzZSwiaWF0IjoxNTc1MTQyMTgwLCJleHAiOjE1NzUxNDIzNjB9.Qn_i4x1EUxQM39nmge03Ik1GEPfbNAg91CZygIhf8a8
 
 ### Update form by id
-PATCH http://localhost:3000/forms/5d91c849af216a1f40585084
+PATCH http://localhost:3000/forms/5de2c095a93caf0a70d28b62
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGQ5MTc1MTQ2YjJiYTJmMDRmZmY0YjIiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJHVGVXdnMnRNNTlPQVB5QnNYUlZyb09yUld3RXJQS2JJRDExT0NpSWhNdkRQWi4yS1ZGTVBPIiwiYWRtaW4iOnRydWUsImlhdCI6MTU3NTE0MjA2OSwiZXhwIjoxNTc1MTQyMjQ5fQ.1gxzKu0DCP9fEtMXPtnsqJ00351LsNg97whtTqsxG8g
 Content-Type: application/json
 
 {
-    "city": "Vilnius",
-    "address": "Gostauto g. 48",
+    "city": "Kaunas",
+    "address": "Gedimino g. 48",
     "phone": "+37062214256"
 }
