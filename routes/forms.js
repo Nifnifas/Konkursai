@@ -11,12 +11,12 @@ router.get('/', authenticateToken, requireAdmin, async (req, res) => {
         const forms = await Form.find()
         res.json(forms)
     } catch (err) {
-        res.status(500).json({message: err.message})
+        res.status(400).json({message: "Bad request."})
     }
 })
 
 // One form
-router.get('/:id', authenticateToken, requireAdmin, getForm, (req, res) => {
+router.get('/:id', authenticateToken, getForm, requireAdminOrSameUser,  (req, res) => {
     res.json(res.form)
 })
 
@@ -30,65 +30,98 @@ router.post('/', authenticateToken, async (req, res) => {
         fk_userid: req.user._id
     })
 
-    try {
-        const newForm = await form.save()
-        res.status(201).json(newForm)
-        
-    } catch (err) {
-        res.status(400).json({message: err.message})
+    if(form.city == null || form.address == null || form.phone == null || form.about == null || 
+        form.city == "" || form.address == "" || form.phone == "" || form.about == ""){
+
+        res.status(400).json({message: "You must fill in all required fields in correct formats."})
+    }
+    else if(form.city.length < 4 || form.city.length > 32){
+        res.status(400).json({message: "City must be between 4 and 32 symbols length."})
+    }
+    else if(form.address.length < 4 || form.address.length > 32){
+        res.status(400).json({message: "Address must be between 4 and 32 symbols length."})
+    }
+    else if(form.phone.toString().length != 11){
+        res.status(400).json({message: "Phone number must start with '370' format."})
+    }
+    else if(form.about.length > 250){
+        res.status(400).json({message: "About field must be max 250 symbols length."})
+    }
+    else{
+        try {
+            const newForm = await form.save()
+            res.status(201).json({message: "New form added successfully."})
+            
+        } catch (err) {
+            res.status(400).json({message: "Wrong input format."})
+        }
     }
 })
 
 // Update form
-router.patch('/:id', getForm, authenticateToken, requireSameUser, async (req, res) => {
-    if(req.body.city != null){
-        res.form.city = req.body.city
-    }
-    if(req.body.address != null){
-        res.form.address = req.body.address
-    }
-    if(req.body.phone != null){
-        res.form.phone = req.body.phone
-    }
-    if(req.body.about != null){
-        res.form.about = req.body.about
-    }
+router.patch('/:id', authenticateToken, getForm, requireSameUser, async (req, res) => {
     try {
+        if(req.body.city == "" || req.body.address == "" || req.body.phone == "" || req.body.about == ""){
+            res.status(400).json({message: "You must fill in all required fields."})
+        }
+        if(req.body.city != null){
+            if(req.body.city.length < 4 || req.body.city.length > 32){
+                res.status(400).json({message: "City must be between 4 and 32 symbols length."})
+            }
+            else{
+                res.form.city = req.body.city
+            }
+        }
+        if(req.body.address != null){
+            if(req.body.address.length < 4 || req.body.address.length > 32){
+                res.status(400).json({message: "Address must be between 4 and 32 symbols length."})
+            }
+            else{
+                res.form.address = req.body.address
+            }   
+        }
+        if(req.body.phone != null){
+            if(req.body.phone.toString().length != 11){
+                res.status(400).json({message: "Phone number must start with '370' format."})
+            }
+            else{
+                res.form.phone = req.body.phone
+            }
+        }
+        if(req.body.about != null){
+            if(req.body.about.length > 250){
+                res.status(400).json({message: "About field must be max 250 symbols length."})
+            }
+            else{
+                res.form.about = req.body.about
+            }
+        }
         const updatedForm = await res.form.save()
-        res.json(updatedForm)
+        res.status(200).json(updatedForm) 
     } catch (err) {
-        res.status(400).json({message: err.message})
+        res.status(400)
     }
 })
 
 // Delete form
-router.delete('/:id', getForm, authenticateToken, requireSameUser,  async (req, res) => {
+router.delete('/:id', authenticateToken, getForm, requireSameUser,  async (req, res) => {
     try {
         await res.form.remove()
-        res.json({message: 'Form deleted'})
+        res.status(200).json({message: "Form deleted successfully."})
     } catch (err) {
-        res.status(500).json({message: err.message})
+        res.status(403).json({message: err.message})
     }
 })
-
-function requireAdmin(req, res, next) {
-    if (req.user.admin == false) {
-        res.json({message: 'Permission denied. You have to be admin.'});
-    }
-    else {
-        next();
-    }
-};
 
 async function getForm(req, res, next){
     let form
     try{
         form = await Form.findById(req.params.id)
         if(form == null){
-            return res.status(404).json({message: 'Cannot find form'})
+            return res.status(404).json({message: "Form not found."})
         }
     } catch (err) {
-        return res.status(500).json({message: err.message})
+        return res.status(404).send({message: "Form not found."})
     }
     res.form = form
     next()
@@ -104,7 +137,7 @@ function authenticateToken (req, res, next){
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if(err)
-            return res.sendStatus(403)
+            return res.sendStatus(401)
         req.user = user
         
         next()
@@ -113,7 +146,7 @@ function authenticateToken (req, res, next){
 
 function requireAdmin(req, res, next) {
     if (req.user.admin == false) {
-        res.json({message: 'Permission denied. You have to be admin.'});
+        res.status(403).json({message: "Permission denied. You have to be admin."});
     }
     else {
         next();
@@ -122,10 +155,19 @@ function requireAdmin(req, res, next) {
 
 function requireSameUser(req, res, next) {
     if (req.user._id != res.form.fk_userid) {
-        res.json({message: 'Permission denied. You have to be same user.'});
+        res.status(403).json({message: "Permission denied. You have to be same user."});
     }
     else {
         next();
+    }
+};
+
+function requireAdminOrSameUser(req, res, next) {
+    if (req.user._id == res.form.fk_userid || req.user.admin == true) {
+        next();
+    }
+    else {
+        res.status(403).json({message: "Permission denied. You have to be same user or admin."});
     }
 };
 
