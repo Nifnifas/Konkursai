@@ -1,8 +1,8 @@
 ### Get all contests
-GET http://localhost:3000/contests
+GET http://localhost:4000/api/contests
 
 ### Get one contest by id
-GET http://localhost:3000/contests/5de40035916801026c7223a3
+GET http://localhost:4000/api/contests/5de40035916801026c7223a3
 
 ### Create new contest
 POST http://localhost:3000/contests

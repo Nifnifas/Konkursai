@@ -1,12 +1,12 @@
 ### Get all users
-GET http://localhost:3000/users/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGQ5MTc1MTQ2YjJiYTJmMDRmZmY0YjIiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJHVGVXdnMnRNNTlPQVB5QnNYUlZyb09yUld3RXJQS2JJRDExT0NpSWhNdkRQWi4yS1ZGTVBPIiwiYWRtaW4iOnRydWUsImlhdCI6MTU3NTcxODU2MywiZXhwIjoxNTc1NzE4OTIzfQ.wlwugFdNyKUU6RlLe3EsXGR7JXoNhWFuoDrxfykSLkQ
+GET http://localhost:4000/api/users/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGQ5MTc1MTQ2YjJiYTJmMDRmZmY0YjIiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJHVGVXdnMnRNNTlPQVB5QnNYUlZyb09yUld3RXJQS2JJRDExT0NpSWhNdkRQWi4yS1ZGTVBPIiwiYWRtaW4iOnRydWUsImlhdCI6MTU3NzExMTg4OCwiZXhwIjoxNTc3MTE0ODg4fQ.4EKrBTpbwl1z61YN57r7m8ukExoeQ5ykYwI4eJt2f0o
 
 ### Get one user by id
-GET http://localhost:3000/users/5de4054c36339d46c800d01a
+GET http://localhost:4000/api/users/5de4054c36339d46c800d01a
 
 ### Create new user
-POST http://localhost:3000/users/register
+POST http://localhost:4000/api/users/register
 Content-Type: application/json
 
 #{
@@ -18,16 +18,16 @@ Content-Type: application/json
 #}
 
 {
-    "name": "test",
-    "surname": "test",
+    "name": "a",
+    "surname": "aaaaa",
     "age": "30",
-    "email": "test@gmail.com",
-    "password": "krupenkinas",
+    "email": "aaaaa@gmail.com",
+    "password": "aaaaaaaaaaaa",
     "admin": false
 }
 
 ### Login user
-POST http://localhost:3000/users/login
+POST http://localhost:4000/api/users/login
 Content-Type: application/json
 
 {
@@ -36,15 +36,15 @@ Content-Type: application/json
 }
 
 ### Access token autherization
-GET http://localhost:4000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGUyNzEzOWYyNTA1OTNkODRhZjQzNTMiLCJuYW1lIjoiVG9tYXMiLCJzdXJuYW1lIjoiTWFsaW5hdXNrYXMiLCJhZ2UiOjI1LCJlbWFpbCI6InN1dUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRQMTYweFRoaFMvMjdMWElCR243ejR1Qm5JUzNaNzF5ME15TGUwcEl1dFl6SEpZRG5XWG1LcSIsImFkbWluIjpmYWxzZSwiaWF0IjoxNTc1NzE3NTI5LCJleHAiOjE1NzU3MTc1Mjl9.00rihVb4u8VoB-Bnfx7ilpam3P6C6L3R321UmM19mGw
+GET http://localhost:4000/api/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGQ5MTc1MTQ2YjJiYTJmMDRmZmY0YjIiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJHVGVXdnMnRNNTlPQVB5QnNYUlZyb09yUld3RXJQS2JJRDExT0NpSWhNdkRQWi4yS1ZGTVBPIiwiYWRtaW4iOnRydWUsImlhdCI6MTU3NzExMjgwMSwiZXhwIjoxNTc3MTE1ODAxfQ.1Usjtf2X_zeEVRcdtCPxxwVMlaQoH4CQwB6nIHzvnAE
 
 ### Delete user by id
-DELETE http://localhost:3000/users/5de98a53ab78ce0ea05831f5
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGQ5MTc1MTQ2YjJiYTJmMDRmZmY0YjIiLCJuYW1lIjoiTHVrYXMiLCJzdXJuYW1lIjoiS3J1cGVua2luYXMiLCJhZ2UiOjIyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJHVGVXdnMnRNNTlPQVB5QnNYUlZyb09yUld3RXJQS2JJRDExT0NpSWhNdkRQWi4yS1ZGTVBPIiwiYWRtaW4iOnRydWUsImlhdCI6MTU3NTU4Njc1MywiZXhwIjoxNTc1NTg2OTMzfQ.-Z3KFtY8SklHuIUEISEtyA6EcLv69zfBrJ_wgaGtDz0
+DELETE http://localhost:4000/api/users/5dd17146b2ba2f04fff4b2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGUyNzEzOWYyNTA1OTNkODRhZjQzNTMiLCJuYW1lIjoiVG9tYXMiLCJzdXJuYW1lIjoiTWFsaW5hdXNrYXMiLCJhZ2UiOjMwLCJlbWFpbCI6InN1dUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRQMTYweFRoaFMvMjdMWElCR243ejR1Qm5JUzNaNzF5ME15TGUwcEl1dFl6SEpZRG5XWG1LcSIsImFkbWluIjpmYWxzZSwiaWF0IjoxNTc1OTYzMTAyLCJleHAiOjE1NzU5NjM0NjJ9.hU4fowo4c5kgdLz5uYoD0dWutacoCLsW8CfXDFHZZiY
 
 ### Update user by id
-PATCH http://localhost:3000/users/5de27139f250593d84af4353
+PATCH http://localhost:4000/api/users/5de27139f250593d84af4353
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGUyNzEzOWYyNTA1OTNkODRhZjQzNTMiLCJuYW1lIjoiS2Fyb2xpcyIsInN1cm5hbWUiOiJNYWxpbmF1c2thcyIsImFnZSI6MzAsImVtYWlsIjoic3V1QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJFAxNjB4VGhoUy8yN0xYSUJHbjd6NHVCbklTM1o3MXkwTXlMZTBwSXV0WXpISllEbldYbUtxIiwiYWRtaW4iOmZhbHNlLCJpYXQiOjE1NzU3MjYyNzksImV4cCI6MTU3NTcyNjYzOX0.UQWWxmvCSvjlowsLmbN64UgPeJhcAp_Zsn_YRYSrRzc
 Content-Type: application/json
 

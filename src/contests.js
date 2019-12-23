@@ -1,53 +1,18 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from "react";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import LoadingBar from './loadingBar';
+import { withStyles } from '@material-ui/styles';
+import PropTypes from 'prop-types';
 
-const tileData = 
-[
-    {
-        img: 'https://www.w3schools.com/w3css/img_lights.jpg',
-        title: 'Image',
-        author: 'author',
-    },
-    {
-        img: 'https://www.w3schools.com/w3css/img_lights.jpg',
-        title: 'Image',
-        author: 'author',
-    },
-    {
-        img: 'https://www.w3schools.com/w3css/img_lights.jpg',
-        title: 'Image',
-        author: 'author',
-    },
-    {
-        img: 'https://www.w3schools.com/w3css/img_lights.jpg',
-        title: 'Image',
-        author: 'author',
-    },
-    {
-        img: 'https://www.w3schools.com/w3css/img_lights.jpg',
-        title: 'Image',
-        author: 'author',
-    },
-    {
-        img: 'https://www.w3schools.com/w3css/img_lights.jpg',
-        title: 'Image',
-        author: 'author',
-    },
-]
-
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
   },
   gridList: {
     paddingTop: 15,
@@ -56,29 +21,43 @@ const useStyles = makeStyles(theme => ({
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
-}));
+  img: {
 
-export default function TitlebarGridList() {
-  const classes = useStyles();
+  }
+});
 
-  return (
+class Contests extends Component {
+  state = { contests: [] }
+
+  componentDidMount(){
+    fetch('/contests')
+    .then(res => res.json())
+    .then(contests => this.setState({contests}))
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
     <div className={classes.root}>
       <GridList cols={3} spacing={10} cellHeight={180} className={classes.gridList}>
-        {tileData.map(tile => (
-          <GridListTile key={tile.img}>
-            <img src={tile.img} alt={tile.title} />
+        {this.state.contests.map(contest => (
+          <GridListTile key='https://www.w3schools.com/w3css/img_lights.jpg'>
+            <img className={classes.img} src='https://www.w3schools.com/w3css/img_lights.jpg' alt={contest.title} />
             <GridListTileBar
-              title={tile.title}
-              subtitle={<span>by: {tile.author}</span>}
-              actionIcon={
-                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
-          </GridListTile>
+                title={contest.title}
+                subtitle={<span>Autorius: {contest.author}</span>}
+                actionIcon={<IconButton aria-label={`info about ${contest.title}`} className={classes.icon}>
+                <InfoIcon /></IconButton>}/>
+            </GridListTile>
         ))}
       </GridList>
     </div>
-  );
+    );
+  }
 }
+
+Contests.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Contests);

@@ -57,11 +57,11 @@ router.post('/register', async (req, res) => {
             const hashedPassword = await bcrypt.hash(user.password, 10)
             user.password = hashedPassword
             const newUser = await user.save()
-            res.status(201).json({message: "New user registered successfully."})
-            //res.redirect('/login')
+            //res.status(201).json({message: "New user registered successfully."})
+            res.status(201).redirect('/login')
         } catch (err) {
-            res.status(400).json({message: "Wrong input format."})
-            //res.redirect('/register')
+            //res.status(400).json({message: "Wrong input format."})
+            res.status(400).redirect('/register')
         }
     }
 })
@@ -88,11 +88,14 @@ router.post('/login', async (req, res) => {
         if(await bcrypt.compare(req.body.password, user.password)) {
             const accessToken = generateAccessToken(user)
             res.json({ accessToken: accessToken })
+            //res.status(201).redirect('/index')
         } else {
             res.status(401).send({message: "Permission denied. Wrong password."})
+            //res.status(401).redirect('/login')
         }
     } catch {
         res.status(400).send({message: "Bad request."})
+        //res.status(400).redirect('/login')
     }
 })
 
@@ -150,7 +153,7 @@ router.patch('/:id', authenticateToken, getUser, requireSameUser, async (req, re
 })
 
 // Delete user
-router.delete('/:id', authenticateToken, getUser, requireAdmin, async (req, res) => {
+router.delete('/:id', authenticateToken, requireAdmin, getUser, async (req, res) => {
     try {
         await res.user.remove()
         res.status(200).json({message: "User deleted successfully."})
@@ -210,7 +213,7 @@ function authenticateToken (req, res, next){
 }
 
 function generateAccessToken(user){
-    return jwt.sign(user.toObject(), process.env.ACCESS_TOKEN_SECRET, { expiresIn: '360s'})
+    return jwt.sign(user.toObject(), process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3000s'})
 }
 
 module.exports = router

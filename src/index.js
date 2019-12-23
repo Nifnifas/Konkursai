@@ -1,17 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import store from './store';
+import { BrowserRouter as Router } from 'react-router-dom';
+import './index.css';
 import App from './App';
-import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
-//ReactDOM.render(<Navbar />, document.getElementById('root'));
-//ReactDOM.render(<Contests />, document.getElementById('root'));
-
 ReactDOM.render(
-  <Provider store={store}>
+  <Router>
     <App />
-  </Provider>,
+  </Router>,
   document.getElementById('root')
 );
 
